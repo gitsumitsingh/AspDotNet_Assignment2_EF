@@ -1,0 +1,109 @@
+﻿@model Assignment2_EF.Models.Employee
+
+@{
+    /**/
+
+    ViewBag.Title = "Add Employee";
+}
+
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h3 class="text-center">Employee Management</h3>
+            <br />
+            <b class="text-center d-block">Add New Employee</b>
+            <br />
+            <br />
+
+            @using (Html.BeginForm("AddEmployee", "Employee", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken() // This generates the anti-forgery token
+                <table class="table table-bordered">
+                    <tr>
+                        <td colspan="2">
+                            @if (ViewBag.Failed != null)
+                            {
+                                <span class="text-danger">@ViewBag.Failed</span>
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.LabelFor(e => e.EmployeeName)
+                        </td>
+                        <td>
+                            @Html.TextBoxFor(e => e.EmployeeName, new { @class = "form-control" })
+                            <br />
+                            @Html.ValidationMessageFor(e => e.EmployeeName, null, new { @class = "text-danger" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.LabelFor(e => e.Address)
+                        </td>
+                        <td>
+                            @Html.TextBoxFor(e => e.Address, new { @class = "form-control" })
+                            <br />
+                            @Html.ValidationMessageFor(e => e.Address, null, new { @class = "text-danger" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.LabelFor(e => e.EmailId)
+                        </td>
+                        <td>
+                            @Html.TextBoxFor(e => e.EmailId, new { @class = "form-control" })
+                            <br />
+                            @Html.ValidationMessageFor(e => e.EmailId, null, new { @class = "text-danger" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="text-center">
+                            <br />
+                            <input type="submit" value="Submit" class="btn btn-primary" />
+                        </td>
+                    </tr>
+                </table>
+            }
+
+            <!-- Bootstrap Modal -->
+            <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="successModalLabel">Success</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Employee added successfully!
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var successMessage = '@TempData["SuccessMessage"]';
+            if (successMessage) {
+                $('#successModal').modal('show');
+                setTimeout(function () {
+                    if (confirm("Do you want to be redirected?")) {
+                        window.location.href = '@Url.Action("Index", "Employee")';
+                    }
+                }, 3000);
+            }
+        });
+    </script>
+}
+

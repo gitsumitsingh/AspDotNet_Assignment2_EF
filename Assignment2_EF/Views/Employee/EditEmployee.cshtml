@@ -1,0 +1,51 @@
+﻿@model Assignment2_EF.Models.Employee
+
+@{
+    ViewBag.Title = "Edit Employee";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h3 class="text-center">Employee Management</h3>
+            <br />
+            <b class="text-center d-block">Edit Employee</b>
+            <br />
+
+            @using (Html.BeginForm("EditEmployee", "Employee", FormMethod.Post))
+            {
+                @Html.HiddenFor(e => e.EmployeeId)
+                <div class="form-group">
+                    @if (ViewBag.Failed != null)
+                    {
+                        <div class="alert alert-danger">
+                            @ViewBag.Failed
+                        </div>
+                    }
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(e => e.EmployeeName)
+                    @Html.TextBoxFor(e => e.EmployeeName, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(e => e.EmployeeName, null, new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(e => e.Address)
+                    @Html.TextBoxFor(e => e.Address, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(e => e.Address, null, new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(e => e.EmailId)
+                    @Html.TextBoxFor(e => e.EmailId, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(e => e.EmailId, null, new { @class = "text-danger" })
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,48 @@
+﻿@model IEnumerable<Assignment2_EF.Models.Employee>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+       
+        <div class="col-md-8">
+
+            <div class="text-right mb-3">
+                <h1 style="text-align:center">Welcome :<p>Logged in as: @User.Identity.Name</p></h1>
+                <a href="@Url.Action("AddEmployee", "Employee")" class="btn btn-primary">Add Employee</a>
+            </div>
+            <table class="table table-bordered table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Employee Id</th>
+                        <th>Name</th>
+                        <th>Address</th>
+                        <th>Email Id</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var emp in Model)
+                    {
+                        <tr>
+                            <td>@emp.EmployeeId</td>
+                            <td>@emp.EmployeeName</td>
+                            <td>@emp.Address</td>
+                            <td>@emp.EmailId</td>
+                            <td>
+                                <a href="@Url.Action("EditEmployee", "Employee", new { EmployeeId = emp.EmployeeId })" class="btn btn-sm btn-warning">Edit</a>
+                                @if (User.Identity.Name == "admin")
+                                {
+                                    <a href="@Url.Action("DeleteEmployee", "Employee", new { EmployeeId = emp.EmployeeId })" class="btn btn-sm btn-danger">Delete</a>
+                                }
+
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

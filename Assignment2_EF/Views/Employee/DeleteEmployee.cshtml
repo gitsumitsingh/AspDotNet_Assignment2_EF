@@ -1,0 +1,60 @@
+﻿@model Assignment2_EF.Models.Employee
+
+@{
+    ViewBag.Title = "Delete Employee";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h3 class="text-center">Employee Management</h3>
+            <br />
+
+            @using (Html.BeginForm("DeleteEmployee", "Employee", FormMethod.Post))
+            {
+                @Html.HiddenFor(e => e.EmployeeId)
+                <table class="table table-bordered">
+                    <tr>
+                        <td colspan="2" class="text-center">
+                            <b>Delete Employee</b>
+                            @if (ViewBag.Failed != null)
+                            {
+                                <span class="text-danger">@ViewBag.Failed</span>
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.LabelFor(e => e.EmployeeName)
+                        </td>
+                        <td>
+                            @Html.TextBoxFor(e => e.EmployeeName, new { @class = "form-control", @readonly = "readonly" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.LabelFor(e => e.Address)
+                        </td>
+                        <td>
+                            @Html.TextBoxFor(e => e.Address, new { @class = "form-control", @readonly = "readonly" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.LabelFor(e => e.EmailId)
+                        </td>
+                        <td>
+                            @Html.TextBoxFor(e => e.EmailId, new { @class = "form-control", @readonly = "readonly" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="text-center">
+                            <br />
+                            <input type="submit" value="Delete" class="btn btn-danger" />
+                        </td>
+                    </tr>
+                </table>
+            }
+        </div>
+    </div>
+</div>
