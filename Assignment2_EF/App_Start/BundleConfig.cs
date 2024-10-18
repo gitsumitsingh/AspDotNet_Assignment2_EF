@@ -35,7 +35,14 @@ namespace Assignment2_EF
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.min.css"));  //
 
+            // DataTables CSS bundle
+            bundles.Add(new StyleBundle("~/bundles/datatables-css").Include(
+                        "~/Content/jquery.dataTables.min.css"));
 
+            // DataTables JS bundle
+            bundles.Add(new ScriptBundle("~/bundles/datatables-js").Include(
+                        "~/Scripts/jquery-3.7.0.min.js",
+                        "~/Scripts/jquery.dataTables.min.js"));
 
             BundleTable.EnableOptimizations = true;
         }

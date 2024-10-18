@@ -6,14 +6,16 @@
 
 <div class="container">
     <div class="row justify-content-center">
-       
         <div class="col-md-8">
-
             <div class="text-right mb-3">
-                <h1 style="text-align:center">Welcome :<p>Logged in as: @User.Identity.Name</p></h1>
+                <h1 style="text-align:center">
+                    Welcome :
+                    <p>Logged in as: @User.Identity.Name</p>
+                </h1>
                 <a href="@Url.Action("AddEmployee", "Employee")" class="btn btn-primary">Add Employee</a>
             </div>
-            <table class="table table-bordered table-striped">
+
+            <table id="employeeTable" class="table table-bordered table-striped">
                 <thead class="thead-dark">
                     <tr>
                         <th>Employee Id</th>
@@ -32,12 +34,13 @@
                             <td>@emp.Address</td>
                             <td>@emp.EmailId</td>
                             <td>
-                                <a href="@Url.Action("EditEmployee", "Employee", new { EmployeeId = emp.EmployeeId })" class="btn btn-sm btn-warning">Edit</a>
+                                <a href="@Url.Action("EditEmployee", "Employee", new { EmployeeId = emp.EmployeeId })"
+                                   class="btn btn-sm btn-warning">Edit</a>
                                 @if (User.Identity.Name == "admin")
                                 {
-                                    <a href="@Url.Action("DeleteEmployee", "Employee", new { EmployeeId = emp.EmployeeId })" class="btn btn-sm btn-danger">Delete</a>
+                                    <a href="@Url.Action("DeleteEmployee", "Employee", new { EmployeeId = emp.EmployeeId })"
+                                       class="btn btn-sm btn-danger">Delete</a>
                                 }
-
                             </td>
                         </tr>
                     }
@@ -46,3 +49,21 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+
+    <script>
+        $(document).ready(function () {
+            $('#employeeTable').DataTable({
+                "paging": true,         // Enable pagination
+                "searching": true,      // Enable search box
+                "ordering": true,       // Enable column sorting
+                "pageLength": 5,        // Default number of records per page
+                "lengthMenu": [5, 10, 25, 50],  // Page length options
+                "language": {
+                    "emptyTable": "No employees available"
+                }
+            });
+        });
+    </script>
+}

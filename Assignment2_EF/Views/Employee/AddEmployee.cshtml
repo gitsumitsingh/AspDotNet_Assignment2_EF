@@ -1,24 +1,18 @@
 ﻿@model Assignment2_EF.Models.Employee
 
 @{
-    /**/
-
     ViewBag.Title = "Add Employee";
 }
-
 
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-6">
             <h3 class="text-center">Employee Management</h3>
-            <br />
             <b class="text-center d-block">Add New Employee</b>
-            <br />
-            <br />
 
             @using (Html.BeginForm("AddEmployee", "Employee", FormMethod.Post))
             {
-                @Html.AntiForgeryToken() // This generates the anti-forgery token
+                @Html.AntiForgeryToken() <!-- Anti-forgery token for security -->
                 <table class="table table-bordered">
                     <tr>
                         <td colspan="2">
@@ -29,38 +23,28 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>
-                            @Html.LabelFor(e => e.EmployeeName)
-                        </td>
+                        <td>@Html.LabelFor(e => e.EmployeeName)</td>
                         <td>
                             @Html.TextBoxFor(e => e.EmployeeName, new { @class = "form-control" })
-                            <br />
                             @Html.ValidationMessageFor(e => e.EmployeeName, null, new { @class = "text-danger" })
                         </td>
                     </tr>
                     <tr>
-                        <td>
-                            @Html.LabelFor(e => e.Address)
-                        </td>
+                        <td>@Html.LabelFor(e => e.Address)</td>
                         <td>
                             @Html.TextBoxFor(e => e.Address, new { @class = "form-control" })
-                            <br />
                             @Html.ValidationMessageFor(e => e.Address, null, new { @class = "text-danger" })
                         </td>
                     </tr>
                     <tr>
-                        <td>
-                            @Html.LabelFor(e => e.EmailId)
-                        </td>
+                        <td>@Html.LabelFor(e => e.EmailId)</td>
                         <td>
                             @Html.TextBoxFor(e => e.EmailId, new { @class = "form-control" })
-                            <br />
                             @Html.ValidationMessageFor(e => e.EmailId, null, new { @class = "text-danger" })
                         </td>
                     </tr>
                     <tr>
                         <td colspan="2" class="text-center">
-                            <br />
                             <input type="submit" value="Submit" class="btn btn-primary" />
                         </td>
                     </tr>
@@ -89,16 +73,19 @@
         </div>
     </div>
 </div>
+
 @section Scripts {
-
-
-    <script type="text/javascript">
+    <script>
         $(document).ready(function () {
             var successMessage = '@TempData["SuccessMessage"]';
+
             if (successMessage) {
+                // Show success modal
                 $('#successModal').modal('show');
+
+                // Ask for confirmation to redirect after 3 seconds
                 setTimeout(function () {
-                    if (confirm("Do you want to be redirected?")) {
+                    if (confirm("Do you want to be redirected to the Employee List?")) {
                         window.location.href = '@Url.Action("Index", "Employee")';
                     }
                 }, 3000);
@@ -106,4 +93,3 @@
         });
     </script>
 }
-

@@ -1,5 +1,6 @@
 ﻿using Assignment2_EF.Models;
 using Assignment2_EF.Repository;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace Assignment2_EF.Controllers
@@ -17,10 +18,10 @@ namespace Assignment2_EF.Controllers
         {
             _employeeRepository = employeeRepository;
         }
-       // [OutputCache(Duration = 60, VaryByParam = "none")]
-        public ActionResult Index()
+        // [OutputCache(Duration = 60, VaryByParam = "none")]
+        public async Task<ActionResult> Index()
         {
-            var model = _employeeRepository.GetAllEmployee();
+            var model = await _employeeRepository.GetAllEmployee();
             return View(model);
         }
 
@@ -34,6 +35,7 @@ namespace Assignment2_EF.Controllers
         }
        
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult AddEmployee(Employee model)
         {
             if (ModelState.IsValid)
@@ -50,7 +52,7 @@ namespace Assignment2_EF.Controllers
                     return RedirectToAction("AddEmployee", "Employee");
                 }
             }
-            return View();
+            return View(model);
         }
 
         public ActionResult EditEmployee(int employeeId)

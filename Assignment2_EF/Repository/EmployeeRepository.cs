@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace Assignment2_EF.Repository
@@ -17,9 +18,15 @@ namespace Assignment2_EF.Repository
             _context = context;
         }
 
-        public IEnumerable<Employee> GetAllEmployee()
+        /// <summary>
+        /// Author:sumit singh
+        /// Scope: Implemented Async awit 
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IEnumerable<Employee>> GetAllEmployee()
         {
-            return _context.Employees.ToList();
+
+            return await _context.Employees.OrderBy(e => e.EmployeeName).ToListAsync();
         }
 
         public Employee GetEmployeeById(int studentId)
